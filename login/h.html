@@ -1,0 +1,25 @@
+function loadHome() {
+  const user = localStorage.getItem('currentUser');
+  document.getElementById('homeUser').textContent = user;
+
+  const profilePic = localStorage.getItem(`${user}_profilePic`) || 'default.jpg';
+
+  const storyContainer = document.querySelector('.story-scroll-container');
+
+  // Create Your Story element
+  const yourStory = document.createElement('div');
+  yourStory.className = 'inline-block mr-4 story-container';
+  yourStory.innerHTML = `
+    <div class="story-profile">
+      <img src="${profilePic}" alt="${user}" />
+      <div class="story-add-btn" onclick="addStory()">+</div>
+    </div>
+    <div class="story-label">Your Story</div>
+  `;
+
+  // Insert Your Story before other stories
+  const otherStories = document.getElementById('otherStories');
+  storyContainer.insertBefore(yourStory, otherStories);
+
+  renderOtherStories();
+}
